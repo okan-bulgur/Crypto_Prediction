@@ -1,3 +1,5 @@
+import os
+
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -6,7 +8,6 @@ import time
 import warnings
 import tqdm
 import matplotlib.pyplot as plt
-from datetime import date
 from tqdm import tqdm
 
 pd.pandas.set_option('display.max_columns', None)
@@ -24,9 +25,7 @@ class newsScraping:
     df = None
     total_news = []
 
-    def __init__(self, data):
-        start = time.time()
-        today = date.today().strftime('%Y-%m-%d')
+    def __init__(self, data, place):
         pd.set_option('display.max_colwidth', 100)
         plt.show()
         pd.options.plotting.backend = "plotly"
@@ -35,7 +34,7 @@ class newsScraping:
         self.setDriver()
         self.pageAnalysis()
         self.createDataFrame()
-        self.createNewsFile()
+        self.createNewsFile(place)
 
     def setData(self, data):
         self.start_date = data.getStartDate()
@@ -150,6 +149,25 @@ class newsScraping:
                                             columns=['date', 'url', 'title', 'description', 'category'])
         self.df['date'] = pd.to_datetime(self.df['date'], format='%b %d, %Y')
 
-    def createNewsFile(self):
-        self.df.to_excel(f'Data Files/{self.symbol}/xlsx Files/bitcoin.com_news_url.xlsx', index=False)
-        self.df.to_csv(f'Data Files/{self.symbol}/csv Files/bitcoin.com_news_url.csv', index=False, encoding='utf-16')
+    def createNewsFile(self, place):
+        pathXlsx = f'Data Files/{self.symbol}/xlsx Files/bitcoin.com_news_url.xlsx'
+        pathCsv = f'Data Files/{self.symbol}/csv Files/bitcoin.com_news_url.csv'
+
+        if not os.path.exists(pathCsv):
+            self.df.to_csv(pathCsv, index=False)
+            self.df.to_excel(pathXlsx, index=False)
+            return
+
+        news_df = pd.read_csv(pathCsv, encoding='utf-16')
+        news_df.reset_index(drop=True, inplace=True)
+
+        if place == 0:
+            news_df = pd.concat([news_df, self.df], ignore_index=True)
+        else:
+            news_df = pd.concat([self.df, news_df], ignore_index=True)
+
+        news_df.to_csv(pathCsv, index=False)
+        news_df.to_excel(pathXlsx, index=False)
+
+        news_df.to_excel(f'Data Files/{self.symbol}/xlsx Files/bitcoin.com_news_url.xlsx', index=False)
+        news_df.to_csv(f'Data Files/{self.symbol}/csv Files/bitcoin.com_news_url.csv', index=False, encoding='utf-16')

@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import requests
 from datetime import datetime
@@ -61,10 +62,15 @@ def get_daily_closing_prices(symbol, start_date, end_date):
     return prices_df
 
 
-def createPriceFile(data):
+def createPriceFile(data, place):
     start_date_str = data.getStartDate()
     end_date_str = data.getEndDate()
     symbol = data.getCryptoType()
+
+    cryptoPathCsv = f'Data Files/{symbol}/csv Files/prices.csv'
+    cryptoPathXlsx = f'Data Files/{symbol}/xlsx Files/prices.xlsx'
+    curencyPathCsv = 'Data Files/currency/csv Files/currency_prices.csv'
+    curencyPathXlsx = 'Data Files/currency/xlsx Files/currency_prices.xlsx'
 
     start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
     end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
@@ -79,8 +85,29 @@ def createPriceFile(data):
                                                 daily_closing_prices_currency_df['price_df2']
     daily_closing_prices_currency_df = daily_closing_prices_currency_df.drop({'price_df1', 'price_df2'}, axis=1)
 
-    daily_closing_prices_crypto_df.to_csv(f'Data Files/{symbol}/csv Files/prices.csv', index=False)
-    daily_closing_prices_crypto_df.to_excel(f'Data Files/{symbol}/xlsx Files/prices.xlsx', index=False)
+    if not os.path.exists(cryptoPathCsv):
+        daily_closing_prices_crypto_df.to_csv(cryptoPathCsv, index=False)
+        daily_closing_prices_crypto_df.to_excel(cryptoPathXlsx, index=False)
 
-    daily_closing_prices_currency_df.to_csv("Data Files/currency/csv Files/currency_prices.csv", index=False)
-    daily_closing_prices_currency_df.to_excel("Data Files/currency/xlsx Files/currency_prices.xlsx", index=False)
+        daily_closing_prices_currency_df.to_csv(curencyPathCsv, index=False)
+        daily_closing_prices_currency_df.to_excel(curencyPathXlsx, index=False)
+
+        return
+
+    price_df = pd.read_csv(cryptoPathCsv)
+    currency_df = pd.read_csv(curencyPathCsv)
+    daily_closing_prices_crypto_df.reset_index(drop=True, inplace=True)
+    daily_closing_prices_currency_df.reset_index(drop=True, inplace=True)
+
+    if place == 1:
+        price_df = pd.concat([price_df, daily_closing_prices_crypto_df], ignore_index=True)
+        currency_df = pd.concat([currency_df, daily_closing_prices_currency_df], ignore_index=True)
+    else:
+        price_df = pd.concat([daily_closing_prices_crypto_df, price_df], ignore_index=True)
+        currency_df = pd.concat([daily_closing_prices_currency_df, currency_df], ignore_index=True)
+
+    price_df.to_csv(cryptoPathCsv, index=False)
+    price_df.to_excel(cryptoPathXlsx, index=False)
+
+    currency_df.to_csv(curencyPathCsv, index=False)
+    currency_df.to_excel(curencyPathXlsx, index=False)
