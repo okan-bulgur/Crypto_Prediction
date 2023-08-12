@@ -10,13 +10,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\Data Files\bitcoin\csv Files\bitcoin.com_news_title_all_results.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\Data Files\bitcoin\csv Files\bitcoin.com_news_url.csv">
           <value>
             <Attribute>
@@ -24,7 +17,35 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\Data Files\bitcoin\csv Files\final_data.csv">
+        <entry key="\Data Files\bitcoin\csv Files\final_data_TEST_DATA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Data Files\bitcoin\csv Files\final_test_data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Data Files\bitcoin\csv Files\prices.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Data Files\currency\csv Files\currency_prices.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\testDatas.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

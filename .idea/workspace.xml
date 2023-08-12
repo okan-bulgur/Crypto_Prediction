@@ -5,12 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="259ad234-5178-4e85-9327-32d71575b30a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Models/bitcoin/Roberta Model/roberta-model.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/bitcoin/Roberta Model/tokenizer/special_tokens_map.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/bitcoin/Roberta Model/tokenizer/tokenizer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/bitcoin/Roberta Model/tokenizer/tokenizer_config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/bitcoin/Roberta Model/tokenizer/vocab.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Prediction/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testDatas.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/bitcoin/gbc_model.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/Models/bitcoin/gbc_model.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prediction/prediction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Prediction/prediction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RobertaModel/roberta_training.py" beforeDir="false" afterPath="$PROJECT_DIR$/RobertaModel/roberta_training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -31,17 +50,20 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/okanb/Desktop/Crypto_Prediction/Data Files&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/okanb/Desktop/Crypto_Prediction&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\okanb\Desktop\Crypto_Prediction\Data Files" />
-      <recent name="C:\Users\okanb\Desktop\Crypto_Prediction\Prediction" />
-      <recent name="C:\Users\okanb\Desktop\Crypto_Prediction\Prepare Datas" />
-      <recent name="C:\Users\okanb\Desktop\Crypto_Prediction\res" />
-      <recent name="C:\Users\okanb\Desktop\Crypto_Prediction\RobertaModel" />
+      <recent name="C:\Users\okanb\Desktop\Crypto_Prediction" />
+      <recent name="C:\Users\okanb\Desktop\Crypto_Prediction\Models\bitcoin\Roberta Model" />
+      <recent name="C:\Users\okanb\Desktop\Crypto_Prediction\Data Files\bitcoin\xlsx Files" />
+      <recent name="C:\Users\okanb\Desktop\Crypto_Prediction\Data Files\bitcoin\csv Files" />
+      <recent name="C:\Users\okanb\Desktop\Crypto_Prediction\Data Files\currency\xlsx Files" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\okanb\Desktop\Crypto_Prediction\Data Files\bitcoin\xlsx Files" />
     </key>
   </component>
   <component name="RunManager">

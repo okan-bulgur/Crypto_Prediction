@@ -328,7 +328,7 @@ early_stop = EarlyStopping(monitor='val_loss', patience=3)
 history_2 = model.fit(
     [train_input_ids, train_attention_masks], y_train,
     validation_data=([val_input_ids, val_attention_masks], y_valid),
-    epochs=10,
+    epochs=1,
     batch_size=128,
     callbacks=[early_stop]
 )

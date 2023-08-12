@@ -4,8 +4,9 @@ from Prediction import prediction
 import pyttsx3
 from tkinter import END
 
-
 movementPred = None
+dataPath = 'testDatas.csv'
+
 
 def speak(text):
     engine = pyttsx3.init()
@@ -31,6 +32,15 @@ def getInformations(testDatas_df, index):
     return inf
 
 
+def loadInfToDf(inf, df):
+    for value in inf:
+        inf[value] = [inf[value]]
+    inf_df = pd.DataFrame(inf)
+    df.reset_index(drop=True, inplace=True)
+    df = pd.concat([df, inf_df])
+    df.to_csv(dataPath, index=False)
+
+
 def getResult(df, index, inf):
     testStartDate = inf['Test Start Date']
     testEndDate = inf['Test End Date']
@@ -38,7 +48,7 @@ def getResult(df, index, inf):
     testStartDate = datetime.strptime(testStartDate, "%Y-%m-%d")
     testEndDate = datetime.strptime(testEndDate, "%Y-%m-%d")
 
-    data_df = pd.read_csv('data.csv')
+    data_df = pd.read_csv(f"Data Files/{inf['Crypto']}/csv Files/final_data.csv")
     data_df.set_index('date', inplace=True)
 
     testStartDate = str(testStartDate).split(" ")[0]
@@ -55,13 +65,6 @@ def getResult(df, index, inf):
 
 def getPredict(df, index, inf):
     global movementPred
-    """exec(open('Prediction/price_prediction_classification_short.py').read(),
-         {'symbol': inf['Crypto'], 'showPlot': False,
-          'train_start_date': inf['Train Start Date'], 'train_end_date': inf['Train End Date'],
-          'test_start_date': inf['Test Start Date'], 'test_end_date': inf['Test End Date']
-          })
-
-    movementPred = rst.result"""
 
     model = 'gbc_model'
     data = prediction.startPrepareData(inf['Crypto'])
@@ -72,8 +75,6 @@ def getPredict(df, index, inf):
     prediction.startModel(data, model, x_train, x_test, y_train, y_test)
 
     test_data_index = data.loc[inf['Test Start Date']: inf['Test End Date']].index
-
-    print("test data index: ", test_data_index)
 
     movementPred = prediction.startPrediction(model, data, x_train, x_test, y_train, y_test, test_data_index)
 
@@ -106,7 +107,7 @@ def calculateConsistency(df, index):
 
 
 def calculateAvgOfConsistency(startIndex, endIndex, txtArea):
-    df = pd.read_csv('testDatas.csv')
+    df = pd.read_csv(dataPath)
     sum = 0
     totalData = 0
     for index in range(startIndex - 2, endIndex - 1):
@@ -150,26 +151,19 @@ def automation(startIndex, endIndex):
         speak(f'{index + 2} is started')
         inf = getInformations(testDatas_df, index)
         print(f'\033[32mIndex : {index + 2}\nInf : {inf}\033[0m\n')
-        testDatas_df = getResult(testDatas_df, index, inf)
         testDatas_df = getPredict(testDatas_df, index, inf)
+        testDatas_df = getResult(testDatas_df, index, inf)
         testDatas_df = calculateConsistency(testDatas_df, index)
-        testDatas_df.to_csv('testDatas.csv', index=False)
+        testDatas_df.to_csv(dataPath, index=False)
         speak(f'{index + 2} is ended')
 
     speak('Test automation is finished')
 
 
 def manuel(inf):
-    global movementPred
-
-    testDatas_df = pd.read_csv('testDatas.csv')
-
-    index = testDatas_df.shape[0] + 1
-
-    print(f'\033[32mIndex : {index + 2}\nInf : {inf}\033[0m\n')
-
-    testDatas_df = getResult(testDatas_df, index, inf)
-    testDatas_df = getPredict(testDatas_df, index, inf)
-    testDatas_df = calculateConsistency(testDatas_df, index)
-    testDatas_df.to_csv('testDatas.csv', index=False)
+    testDatas_df = pd.read_csv(dataPath)
+    loadInfToDf(inf, testDatas_df)
+    testDatas_df = pd.read_csv(dataPath)
+    index = testDatas_df.shape[0]+1
+    automation(index, index)
 
