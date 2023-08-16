@@ -1,8 +1,6 @@
 from functools import partial
 from tkinter import *
 
-screenHeight = 1000
-screenWidth = 1500
 fontType = 'Arial'
 fontSize = 20
 backgroundColor1 = '#D2E9E9'

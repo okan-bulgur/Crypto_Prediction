@@ -12,6 +12,9 @@ import testing as ta
 
 
 class UserScreen:
+    screenHeight = 700
+    screenWidth = 500
+
     cryptoList = ["bitcoin", "ethereum", "solana", "cardano"]
     startDateForData = "2020-01-01"
     crypto = StringVar
@@ -34,7 +37,7 @@ class UserScreen:
 
     def crtScreen(self):
         self.window.title("Crypto Prediction")
-        self.window.geometry(f"{se.screenWidth}x{se.screenHeight}")
+        self.window.geometry(f"{self.screenWidth}x{self.screenHeight}")
         self.window.config(background=se.backgroundColor1)
 
         icon = PhotoImage(file='res/btcIcon.png')
@@ -52,22 +55,17 @@ class UserScreen:
         inputFrameRelHeight = 0.7
         outputFrameRelHeight = 1 - inputFrameRelHeight
 
-        self.generalFrame = Frame(self.window)
+        self.generalFrame = Frame(self.window, bg=se.backgroundColor2)
         self.generalFrame.place(relx=1 - relWidth, rely=1 - relHeight, relwidth=relWidth, relheight=relHeight)
 
-        self.crtInputFrame(0, 0, 1, inputFrameRelHeight, se.backgroundColor2)  # relx, rely, relwidth, relheight, bg
+        self.crtInputFrame(0.2, 0.1, 1, inputFrameRelHeight, se.backgroundColor2)  # relx, rely, relwidth, relheight, bg
         self.crtOutputFrame(0, inputFrameRelHeight, 1, outputFrameRelHeight, se.backgroundColor1)
 
     def crtInputFrame(self, relx, rely, relwidth, relheight, bg):
         self.inputFrame = Frame(self.generalFrame, bg=bg)
         self.inputFrame.place(relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
 
-        headerTxt = "Crypto Prediction"
-        header = Label(self.inputFrame, text=headerTxt, font=(se.fontType, 20, 'bold'), fg=se.foregroundColor,
-                       bg=bg)
-
-        header.grid(row=0, column=0)
-        self.crtInputElements(self.inputFrame)
+        self.crtInputElements(self.inputFrame, bg)
 
     def crtOutputFrame(self, relx, rely, relwidth, relheight, bg):
         self.outputFrame = Frame(self.generalFrame, bg=bg)
@@ -77,16 +75,21 @@ class UserScreen:
 
         self.txtArea = se.crtOutputTextArea(self.outputFrame, {'relx': 0, 'rely': 0, 'relheight': 1, 'relwidth': 1})
 
-    def crtInputElements(self, frame):
+    def crtInputElements(self, frame, bg):
+        # header
+        headerTxt = "Predict Tomorrow's\nMovement"
+        header = Label(frame, text=headerTxt, font=(se.fontType, 20, 'bold'), fg=se.foregroundColor, bg=bg)
+        header.grid(row=0, column=0)
+
         # crypto
-        cryptoBtn = se.crtMenuBtn(frame, "Crypto", {'row': 1, 'column': 0, 'padx': 0, 'pady': 15},
+        cryptoBtn = se.crtMenuBtn(frame, "Crypto", {'row': 1, 'column': 0, 'padx': 0, 'pady': 10},
                                   self.cryptoList, self.setCryptoType, None)
-        self.cryptoLabel = se.crtLabel(frame, {'row': 1, 'column': 1, 'padx': 0, 'pady': 15})
+        self.cryptoLabel = se.crtLabel(frame, {'row': 2, 'column': 0, 'padx': 0, 'pady': 10})
 
         # calculate
-        scrapeDataBtn = se.crtBtn(frame, "Calculate", {'row': 2, 'column': 0, 'padx': 0, 'pady': 15})
+        scrapeDataBtn = se.crtBtn(frame, "Calculate", {'row': 3, 'column': 0, 'padx': 0, 'pady': 10})
         scrapeDataBtn.config(command=self.calculate)
-        self.calculateLabel = se.crtLabel(frame, {'row': 2, 'column': 1, 'padx': 0, 'pady': 15})
+        self.calculateLabel = se.crtLabel(frame, {'row': 4, 'column': 0, 'padx': 0, 'pady': 10})
         self.calculateLabel.config(fg=se.finishForegroundColor)
 
     def setCryptoType(self, crypto, type):

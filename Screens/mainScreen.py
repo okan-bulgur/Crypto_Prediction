@@ -11,6 +11,9 @@ import testing as ta
 
 
 class MainScreen:
+    screenHeight = 1000
+    screenWidth = 1500
+
     cryptoList = ["bitcoin", "ethereum", "solana", "cardano"]
 
     # Frames
@@ -117,7 +120,7 @@ class MainScreen:
 
     def crtScreen(self):
         self.window.title("Crypto Prediction")
-        self.window.geometry(f"{se.screenWidth}x{se.screenHeight}")
+        self.window.geometry(f"{self.screenWidth}x{self.screenHeight}")
         self.window.config(background=se.backgroundColor1)
 
         icon = PhotoImage(file='res/btcIcon.png')
