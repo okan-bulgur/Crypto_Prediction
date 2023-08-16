@@ -1,0 +1,160 @@
+import datetime
+from tkinter import *
+from datetime import timedelta
+import pandas as pd
+import tkinter.messagebox
+from ScrapingDatas import data
+from ScrapingDatas import dataScraping as ds
+from Screens import screenElements as se
+import os
+
+import testing as ta
+
+
+class UserScreen:
+    cryptoList = ["bitcoin", "ethereum", "solana", "cardano"]
+    startDateForData = "2020-01-01"
+    crypto = StringVar
+    cryptoLabel = Label
+    calculateLabel = Label
+
+    # Frames
+    generalFrame = Frame
+    inputFrame = Frame
+    outputFrame = Frame
+
+    resultLabel = Label
+    txtArea = Text
+
+    def __init__(self):
+        self.window = Tk()
+        self.crtScreen()
+        self.window.protocol("WM_DELETE_WINDOW", self.on_close)
+        self.window.mainloop()
+
+    def crtScreen(self):
+        self.window.title("Crypto Prediction")
+        self.window.geometry(f"{se.screenWidth}x{se.screenHeight}")
+        self.window.config(background=se.backgroundColor1)
+
+        icon = PhotoImage(file='res/btcIcon.png')
+        self.window.iconphoto(True, icon)
+
+        header = Label(self.window, text="Crypto Prediction", font=(se.fontType, 40, 'bold'), fg=se.foregroundColor,
+                       bg=se.backgroundColor1)
+        header.pack(side=TOP)
+
+        self.crtGeneralFrame()
+
+    def crtGeneralFrame(self):
+        relHeight = 0.8
+        relWidth = 1
+        inputFrameRelHeight = 0.7
+        outputFrameRelHeight = 1 - inputFrameRelHeight
+
+        self.generalFrame = Frame(self.window)
+        self.generalFrame.place(relx=1 - relWidth, rely=1 - relHeight, relwidth=relWidth, relheight=relHeight)
+
+        self.crtInputFrame(0, 0, 1, inputFrameRelHeight, se.backgroundColor2)  # relx, rely, relwidth, relheight, bg
+        self.crtOutputFrame(0, inputFrameRelHeight, 1, outputFrameRelHeight, se.backgroundColor1)
+
+    def crtInputFrame(self, relx, rely, relwidth, relheight, bg):
+        self.inputFrame = Frame(self.generalFrame, bg=bg)
+        self.inputFrame.place(relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
+
+        headerTxt = "Crypto Prediction"
+        header = Label(self.inputFrame, text=headerTxt, font=(se.fontType, 20, 'bold'), fg=se.foregroundColor,
+                       bg=bg)
+
+        header.grid(row=0, column=0)
+        self.crtInputElements(self.inputFrame)
+
+    def crtOutputFrame(self, relx, rely, relwidth, relheight, bg):
+        self.outputFrame = Frame(self.generalFrame, bg=bg)
+        self.outputFrame.place(relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
+
+        self.resultLabel = se.crtLabel(self.outputFrame, {'row': 0, 'column': 0, 'padx': 0, 'pady': 0})
+
+        self.txtArea = se.crtOutputTextArea(self.outputFrame, {'relx': 0, 'rely': 0, 'relheight': 1, 'relwidth': 1})
+
+    def crtInputElements(self, frame):
+        # crypto
+        cryptoBtn = se.crtMenuBtn(frame, "Crypto", {'row': 1, 'column': 0, 'padx': 0, 'pady': 15},
+                                  self.cryptoList, self.setCryptoType, None)
+        self.cryptoLabel = se.crtLabel(frame, {'row': 1, 'column': 1, 'padx': 0, 'pady': 15})
+
+        # calculate
+        scrapeDataBtn = se.crtBtn(frame, "Calculate", {'row': 2, 'column': 0, 'padx': 0, 'pady': 15})
+        scrapeDataBtn.config(command=self.calculate)
+        self.calculateLabel = se.crtLabel(frame, {'row': 2, 'column': 1, 'padx': 0, 'pady': 15})
+        self.calculateLabel.config(fg=se.finishForegroundColor)
+
+    def setCryptoType(self, crypto, type):
+        if crypto is not None:
+            self.crypto = crypto
+            self.cryptoLabel.config(text=crypto)
+
+            if not os.path.exists(f'Data Files/{crypto}/csv Files'):
+                os.makedirs(f'Data Files/{crypto}/csv Files')
+                os.makedirs(f'Data Files/{crypto}/xlsx Files')
+        else:
+            tkinter.messagebox.showwarning(title="Error", message="Choose Crypto Type")
+
+    def calculate(self):
+        today = str(datetime.date.today())
+        todayDateTime = pd.to_datetime(today)
+
+        trainEndDate = todayDateTime - timedelta(days=2)
+        testDate = todayDateTime - timedelta(days=1)
+
+        trainEndDate = str(trainEndDate).split()[0]
+        testDate = str(testDate).split()[0]
+
+        inf = {
+            'Crypto': self.crypto,
+            'Train Start Date': self.startDateForData,
+            'Train End Date': trainEndDate,
+            'Test Start Date': testDate,
+            'Test End Date': testDate
+        }
+
+        print(inf)
+        # data scraping
+        self.dataScraping(inf['Train Start Date'], inf['Test End Date'], self.crypto)
+        # prepare data
+        self.prepareData(self.crypto)
+        # prediction
+        self.prediction(inf)
+        pass
+
+    def dataScraping(self, startDate, endDate, crypto):
+        print("Start Data Scraping")
+        newData = data.Data(startDate, endDate, crypto)
+        ds.dataScraping(newData)
+        print("End Data Scraping")
+
+    def prepareData(self, crypto):
+        print("Start Prepare Data")
+        exec(open('PrepareDatas/prepare_data.py').read(), {'symbol': crypto})
+        print("End Prepare Data")
+
+    def prediction(self, inf):
+        print("Start Prediction")
+        self.txtArea.config(state='normal')
+        self.txtArea.delete('1.0', END)
+
+        ta.manuel(inf)
+
+        movementPred = ta.movementPred
+
+        for date, predicted in movementPred.items():
+            result = "It is predicted to rise" if predicted == 1 else "It is predicted to fall"
+            date = str(date).split(" ")[0]
+            txt = f"{date}: {result}\n"
+            self.txtArea.insert('end', txt)
+
+        self.txtArea.config(state='disable')
+        print("End Prediction")
+
+    def on_close(self):
+        exit()

@@ -45,6 +45,6 @@ def dataScraping(data):
     ranges = getDateRange(data, startDate, endDate)
     for inf in ranges:
         newData = dt.Data(inf[0], inf[1], data.getCryptoType())
-        print(f"sd: {newData.getStartDate()}\t ed: {newData.getEndDate()}")
+        print("DataScraping: Start Date: ", inf[0], " End Date: ", inf[1])
         priceScraping(newData, inf[2])
         newsScraping(newData, inf[2])

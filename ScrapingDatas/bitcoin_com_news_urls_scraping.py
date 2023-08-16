@@ -154,20 +154,19 @@ class newsScraping:
         pathCsv = f'Data Files/{self.symbol}/csv Files/bitcoin.com_news_url.csv'
 
         if not os.path.exists(pathCsv):
-            self.df.to_csv(pathCsv, index=False)
+            self.df.to_csv(pathCsv, index=False, encoding='utf-16')
             self.df.to_excel(pathXlsx, index=False)
             return
 
         news_df = pd.read_csv(pathCsv, encoding='utf-16')
         news_df.reset_index(drop=True, inplace=True)
 
+        self.df['date'] = pd.to_datetime(self.df['date']).dt.date
+
         if place == 0:
             news_df = pd.concat([news_df, self.df], ignore_index=True)
         else:
             news_df = pd.concat([self.df, news_df], ignore_index=True)
 
-        news_df.to_csv(pathCsv, index=False)
+        news_df.to_csv(pathCsv, index=False, encoding='utf-16')
         news_df.to_excel(pathXlsx, index=False)
-
-        news_df.to_excel(f'Data Files/{self.symbol}/xlsx Files/bitcoin.com_news_url.xlsx', index=False)
-        news_df.to_csv(f'Data Files/{self.symbol}/csv Files/bitcoin.com_news_url.csv', index=False, encoding='utf-16')

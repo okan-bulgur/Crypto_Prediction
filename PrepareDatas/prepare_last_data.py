@@ -53,7 +53,7 @@ def setRSI(data, symbol):
 # MOVING AVERAGE CONVERGENCE DIVERGENCE (MACD)
 
 def setMACD(data, symbol):
-    # Assuming you have a DataFrame called 'data' with a f'{symbol}_price' column
+    # Assuming you have a DataFrame called 'data' with f'{symbol}_price' column
     # Calculate the 12-day EMA
     ema12 = data[f'{symbol}_price'].ewm(span=12, adjust=False).mean()
 
@@ -85,6 +85,7 @@ def setMACD(data, symbol):
 def setMovement(data, symbol):
     data['Price_Diff'] = data[f'{symbol}_price'].shift(-1) - data[f'{symbol}_price']
     data['movement'] = np.where(data['Price_Diff'] > 0, 1, 0)
+    data['Price_Diff'] = data['Price_Diff'].fillna(0)
     data = data.dropna()
     data = data.drop('Price_Diff', axis=1)
     data = data.drop('price_change', axis=1)

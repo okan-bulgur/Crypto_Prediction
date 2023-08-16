@@ -3,6 +3,13 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="\Data Files\DFF Files\DFF.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\Data Files\bitcoin\csv Files\bitcoin.com_news_Test_Data_Sentiments.csv">
           <value>
             <Attribute>
@@ -11,6 +18,13 @@
           </value>
         </entry>
         <entry key="\Data Files\bitcoin\csv Files\bitcoin.com_news_url.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Data Files\bitcoin\csv Files\final_data.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

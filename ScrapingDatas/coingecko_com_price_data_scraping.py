@@ -1,9 +1,9 @@
 import os
 import pandas as pd
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 
-
+"""
 def get_historical_data(symbol, start_date, end_date):
     url = f'https://api.coingecko.com/api/v3/coins/{symbol}/market_chart/range'
     params = {
@@ -14,13 +14,13 @@ def get_historical_data(symbol, start_date, end_date):
 
     response = requests.get(url, params=params)
     data = response.json()
-    print(data)
 
     if 'prices' in data:
         historical_data = data['Prices']
         return historical_data
     else:
         return None
+"""
 
 
 def get_daily_closing_prices(symbol, start_date, end_date):
@@ -46,7 +46,6 @@ def get_daily_closing_prices(symbol, start_date, end_date):
     daily_prices_list = []
 
     for data_point in historical_data:
-        new_price = {}
         timestamp = data_point[0] / 1000
         date = datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d')
         close_price = data_point[1]
@@ -67,6 +66,8 @@ def createPriceFile(data, place):
     end_date_str = data.getEndDate()
     symbol = data.getCryptoType()
 
+    print(f'Start Date: {start_date_str}, End Date: {end_date_str}')
+
     cryptoPathCsv = f'Data Files/{symbol}/csv Files/prices.csv'
     cryptoPathXlsx = f'Data Files/{symbol}/xlsx Files/prices.xlsx'
     curencyPathCsv = 'Data Files/currency/csv Files/currency_prices.csv'
@@ -74,6 +75,7 @@ def createPriceFile(data, place):
 
     start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
     end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
+    end_date = end_date + timedelta(days=1)
 
     daily_closing_prices_crypto_df = get_daily_closing_prices(symbol, start_date, end_date)
     daily_closing_prices_usdt_df = get_daily_closing_prices('tether', start_date, end_date)

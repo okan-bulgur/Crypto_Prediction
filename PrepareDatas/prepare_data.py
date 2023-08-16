@@ -117,8 +117,6 @@ sentiment_df['predicted_class'] = predicted_class
 # Pivot the DataFrame and calculate the count for each combination of 'date' and 'predicted_class'
 result = sentiment_df.pivot_table(index='date', columns='predicted_class', aggfunc='size', fill_value=0)
 
-print("Result:\n", result)
-
 result.to_excel(f"{dataFilePath}/xlsx Files/bitcoin.com_news_Test_Data_Sentiments.xlsx")
 result.to_csv(f"{dataFilePath}/csv Files/bitcoin.com_news_Test_Data_Sentiments.csv")
 
@@ -235,7 +233,7 @@ final_df.isnull().sum()
 final_df.to_excel(f"{dataFilePath}/xlsx Files/final_data_TEST_DATA.xlsx", index=False)
 final_df.to_csv(f"{dataFilePath}/csv Files/final_data_TEST_DATA.csv", index=False)
 
-### FEATURE GENERATION ###
+"""### FEATURE GENERATION ###
 
 # Importing of Data
 data = pd.read_csv(f"{dataFilePath}/csv Files/final_data_TEST_DATA.csv")
@@ -248,11 +246,9 @@ print(f"Data types of data columns: \n{data.dtypes}")
 
 # Calculate the 7-day moving average
 data['moving_average'] = data[f'{symbol}_price'].rolling(window=7).mean()
-print("Moving average mean:\n", data)
 
 data['moving_average'] = data['moving_average'].interpolate(method='linear')
 data = data.dropna(subset=['moving_average'])
-print("Moving average:\n", data)
 
 ### RELATIVE STRENGTH INDEX (RSI) ###
 
@@ -291,9 +287,6 @@ data['rsi'] = 100 - (100 / (1 + data['rs']))
 data['rsi'] = data['rsi'].replace([np.inf, -np.inf], 0)
 data['rsi'] = data['rsi'].fillna(0)
 
-# Display the updated DataFrame
-print("RSI :\n", data)
-
 ### MOVING AVERAGE CONVERGENCE DIVERGENCE (MACD) ###
 
 # Assuming you have a DataFrame called 'data' with a '{symbol}_price' column
@@ -329,7 +322,5 @@ data = data.dropna()
 data = data.drop('Price_Diff', axis=1)
 data = data.drop('price_change', axis=1)
 
-print("MACD :\n", data)
-
 data.to_excel(f"{dataFilePath}/xlsx Files/final_test_data.xlsx", index=True)
-data.to_csv(f"{dataFilePath}/csv Files/final_test_data.csv", index=True)
+data.to_csv(f"{dataFilePath}/csv Files/final_test_data.csv", index=True)"""

@@ -4,25 +4,10 @@ from functools import partial
 import tkinter.messagebox
 from ScrapingDatas import data
 from ScrapingDatas import dataScraping as ds
+from Screens import screenElements as se
 import os
 
 import testing as ta
-
-screenHeight = 1000
-screenWidth = 1500
-fontType = 'Arial'
-fontSize = 20
-backgroundColor1 = '#D2E9E9'
-backgroundColor2 = '#F8F6F4'
-foregroundColor = '#27374D'
-finishForegroundColor = '#16FF00'
-
-btnForegroundColor = '#27374D'
-btnBackgroundColor = '#C4DFDF'
-btnActiveForegroundColor = '#27374D'
-btnActiveBackgroundColor = '#D2E9E9'
-btnFontSize = 12
-btnFontType = 'Arial'
 
 
 class MainScreen:
@@ -132,14 +117,14 @@ class MainScreen:
 
     def crtScreen(self):
         self.window.title("Crypto Prediction")
-        self.window.geometry(f"{screenWidth}x{screenHeight}")
-        self.window.config(background=backgroundColor1)
+        self.window.geometry(f"{se.screenWidth}x{se.screenHeight}")
+        self.window.config(background=se.backgroundColor1)
 
         icon = PhotoImage(file='res/btcIcon.png')
         self.window.iconphoto(True, icon)
 
-        header = Label(self.window, text="Crypto Prediction", font=(fontType, 40, 'bold'), fg=foregroundColor,
-                       bg=backgroundColor1)
+        header = Label(self.window, text="Crypto Prediction", font=(se.fontType, 40, 'bold'), fg=se.foregroundColor,
+                       bg=se.backgroundColor1)
         header.pack(side=TOP)
 
         self.crtGeneralFrame()
@@ -153,8 +138,8 @@ class MainScreen:
         self.generalFrame = Frame(self.window)
         self.generalFrame.place(relx=1 - relWidth, rely=1 - relHeight, relwidth=relWidth, relheight=relHeight)
 
-        self.crtInputFrame(0, 0, 1, inputFrameRelHeight, backgroundColor2)  # relx, rely, relwidth, relheight, bg
-        self.crtOutputFrame(0, inputFrameRelHeight, 1, outputFrameRelHeight, backgroundColor1)
+        self.crtInputFrame(0, 0, 1, inputFrameRelHeight, se.backgroundColor2)  # relx, rely, relwidth, relheight, bg
+        self.crtOutputFrame(0, inputFrameRelHeight, 1, outputFrameRelHeight, se.backgroundColor1)
 
     def crtInputFrame(self, relx, rely, relwidth, relheight, bg):
         self.inputFrame = Frame(self.generalFrame, bg=bg)
@@ -165,7 +150,7 @@ class MainScreen:
             self.inputParts[part] = Frame(self.inputFrame, bg=bg)
             self.inputParts[part].grid(row=0, column=column, padx=20)
             column += 1
-            header = Label(self.inputParts[part], text=part, font=(fontType, 20, 'bold'), fg=foregroundColor,
+            header = Label(self.inputParts[part], text=part, font=(se.fontType, 20, 'bold'), fg=se.foregroundColor,
                            bg=bg)
 
             header.grid(row=0, column=0)
@@ -175,9 +160,9 @@ class MainScreen:
         self.outputFrame = Frame(self.generalFrame, bg=bg)
         self.outputFrame.place(relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
 
-        self.resultLabel = crtLabel(self.outputFrame, {'row': 0, 'column': 0, 'padx': 0, 'pady': 0})
+        self.resultLabel = se.crtLabel(self.outputFrame, {'row': 0, 'column': 0, 'padx': 0, 'pady': 0})
 
-        self.txtArea = crtOutputTextArea(self.outputFrame, {'relx': 0, 'rely': 0, 'relheight': 1, 'relwidth': 1})
+        self.txtArea = se.crtOutputTextArea(self.outputFrame, {'relx': 0, 'rely': 0, 'relheight': 1, 'relwidth': 1})
 
     def crtInputElements(self, part):
         if part == 'Data Part':
@@ -197,131 +182,131 @@ class MainScreen:
 
     def crtDataPartElements(self, part):
         # crypto
-        cryptoBtn = crtMenuBtn(self.inputParts[part], "Crypto", {'row': 1, 'column': 0, 'padx': 0, 'pady': 15},
+        cryptoBtn = se.crtMenuBtn(self.inputParts[part], "Crypto", {'row': 1, 'column': 0, 'padx': 0, 'pady': 15},
                                self.cryptoList, self.setCryptoType, "dataScpCrypto")
-        self.inputs['dataScpCrypto'][1] = crtLabel(self.inputParts[part],
+        self.inputs['dataScpCrypto'][1] = se.crtLabel(self.inputParts[part],
                                                    {'row': 1, 'column': 1, 'padx': 0, 'pady': 15})
 
         # start date
-        startDateBtn = crtBtn(self.inputParts[part], "Start Date", {'row': 2, 'column': 0, 'padx': 0, 'pady': 15})
+        startDateBtn = se.crtBtn(self.inputParts[part], "Start Date", {'row': 2, 'column': 0, 'padx': 0, 'pady': 15})
         startDateBtn.config(command=partial(self.crtCalender, self.inputParts[part], 'dataScpStartDate'))
-        self.inputs['dataScpStartDate'][1] = crtLabel(self.inputParts[part],
+        self.inputs['dataScpStartDate'][1] = se.crtLabel(self.inputParts[part],
                                                       {'row': 2, 'column': 1, 'padx': 0, 'pady': 15})
 
         # end date
-        endDateBtn = crtBtn(self.inputParts[part], "End Date", {'row': 3, 'column': 0, 'padx': 0, 'pady': 15})
+        endDateBtn = se.crtBtn(self.inputParts[part], "End Date", {'row': 3, 'column': 0, 'padx': 0, 'pady': 15})
         endDateBtn.config(command=partial(self.crtCalender, self.inputParts[part], 'dataScpEndDate'))
-        self.inputs['dataScpEndDate'][1] = crtLabel(self.inputParts[part],
+        self.inputs['dataScpEndDate'][1] = se.crtLabel(self.inputParts[part],
                                                     {'row': 3, 'column': 1, 'padx': 0, 'pady': 15})
 
         # scrape data
-        scrapeDataBtn = crtBtn(self.inputParts[part], "Scrape Data", {'row': 4, 'column': 0, 'padx': 0, 'pady': 15})
+        scrapeDataBtn = se.crtBtn(self.inputParts[part], "Scrape Data", {'row': 4, 'column': 0, 'padx': 0, 'pady': 15})
         scrapeDataBtn.config(command=self.dataScraping)
-        self.dataScpLabel = crtLabel(self.inputParts[part], {'row': 4, 'column': 1, 'padx': 0, 'pady': 15})
-        self.dataScpLabel.config(fg=finishForegroundColor)
+        self.dataScpLabel = se.crtLabel(self.inputParts[part], {'row': 4, 'column': 1, 'padx': 0, 'pady': 15})
+        self.dataScpLabel.config(fg=se.finishForegroundColor)
 
     def crtRobertaPartElements(self, part):
         # Crypto
-        cryptoBtn = crtMenuBtn(self.inputParts[part], "Crypto", {'row': 1, 'column': 0, 'padx': 0, 'pady': 15},
+        cryptoBtn = se.crtMenuBtn(self.inputParts[part], "Crypto", {'row': 1, 'column': 0, 'padx': 0, 'pady': 15},
                                self.cryptoList, self.setCryptoType, "robertaCrypto")
-        self.inputs['robertaCrypto'][1] = crtLabel(self.inputParts[part],
+        self.inputs['robertaCrypto'][1] = se.crtLabel(self.inputParts[part],
                                                    {'row': 1, 'column': 1, 'padx': 0, 'pady': 15})
 
         # Show Plot
         self.crtShowPlotBtn(self.inputParts[part], {'row': 2, 'column': 0, 'padx': 0, 'pady': 15}, 'robertaShowPlot')
 
         # Train Roberta
-        trainBtn = crtBtn(self.inputParts[part], "Train Roberta", {'row': 3, 'column': 0, 'padx': 0, 'pady': 15})
+        trainBtn = se.crtBtn(self.inputParts[part], "Train Roberta", {'row': 3, 'column': 0, 'padx': 0, 'pady': 15})
         trainBtn.config(command=partial(self.trainRoberta, 'robertaShowPlot'))
-        self.robertaTrainLabel = crtLabel(self.inputParts[part], {'row': 3, 'column': 1, 'padx': 0, 'pady': 15})
-        self.robertaTrainLabel.config(fg=finishForegroundColor)
+        self.robertaTrainLabel = se.crtLabel(self.inputParts[part], {'row': 3, 'column': 1, 'padx': 0, 'pady': 15})
+        self.robertaTrainLabel.config(fg=se.finishForegroundColor)
 
     def crtPrepareDataPartElements(self, part):
         # Crypto
-        cryptoBtn = crtMenuBtn(self.inputParts[part], "Crypto", {'row': 1, 'column': 0, 'padx': 0, 'pady': 15},
+        cryptoBtn = se.crtMenuBtn(self.inputParts[part], "Crypto", {'row': 1, 'column': 0, 'padx': 0, 'pady': 15},
                                self.cryptoList, self.setCryptoType, "dataCrypto")
-        self.inputs['dataCrypto'][1] = crtLabel(self.inputParts[part],
+        self.inputs['dataCrypto'][1] = se.crtLabel(self.inputParts[part],
                                                 {'row': 1, 'column': 1, 'padx': 0, 'pady': 15})
 
         # Show Plot
         self.crtShowPlotBtn(self.inputParts[part], {'row': 2, 'column': 0, 'padx': 0, 'pady': 15}, 'dataShowPlot')
 
         # Prepare Roberta
-        prepareBtn = crtBtn(self.inputParts[part], "Prepare Data", {'row': 3, 'column': 0, 'padx': 0, 'pady': 15})
+        prepareBtn = se.crtBtn(self.inputParts[part], "Prepare Data", {'row': 3, 'column': 0, 'padx': 0, 'pady': 15})
         prepareBtn.config(command=self.prepareData)
-        self.dataPrepareLabel = crtLabel(self.inputParts[part], {'row': 3, 'column': 1, 'padx': 0, 'pady': 15})
-        self.dataPrepareLabel.config(fg=finishForegroundColor)
+        self.dataPrepareLabel = se.crtLabel(self.inputParts[part], {'row': 3, 'column': 1, 'padx': 0, 'pady': 15})
+        self.dataPrepareLabel.config(fg=se.finishForegroundColor)
 
     def crtPredictPartElements(self, part):
         # Crypto
-        cryptoBtn = crtMenuBtn(self.inputParts[part], "Crypto", {'row': 1, 'column': 0, 'padx': 0, 'pady': 15},
+        cryptoBtn = se.crtMenuBtn(self.inputParts[part], "Crypto", {'row': 1, 'column': 0, 'padx': 0, 'pady': 15},
                                self.cryptoList, self.setCryptoType, "predictCrypto")
-        self.inputs['predictCrypto'][1] = crtLabel(self.inputParts[part],
+        self.inputs['predictCrypto'][1] = se.crtLabel(self.inputParts[part],
                                                    {'row': 1, 'column': 1, 'padx': 0, 'pady': 15})
 
         # Show Plot
         self.crtShowPlotBtn(self.inputParts[part], {'row': 1, 'column': 2, 'padx': 0, 'pady': 15}, 'predictShowPlot')
 
         # Train Data Start Date
-        trainStartDateBtn = crtBtn(self.inputParts[part], "Train Start Date",
+        trainStartDateBtn = se.crtBtn(self.inputParts[part], "Train Start Date",
                                    {'row': 2, 'column': 0, 'padx': 0, 'pady': 15})
         trainStartDateBtn.config(command=partial(self.crtCalender, self.inputParts[part], 'trainDataStartDate'))
-        self.inputs['trainDataStartDate'][1] = crtLabel(self.inputParts[part],
+        self.inputs['trainDataStartDate'][1] = se.crtLabel(self.inputParts[part],
                                                         {'row': 2, 'column': 1, 'padx': 0, 'pady': 15})
 
         # Train Data End Date
-        trainEndDateBtn = crtBtn(self.inputParts[part], "Train End Date",
+        trainEndDateBtn = se.crtBtn(self.inputParts[part], "Train End Date",
                                  {'row': 2, 'column': 2, 'padx': 0, 'pady': 15})
         trainEndDateBtn.config(command=partial(self.crtCalender, self.inputParts[part], 'trainDataEndDate'))
-        self.inputs['trainDataEndDate'][1] = crtLabel(self.inputParts[part],
+        self.inputs['trainDataEndDate'][1] = se.crtLabel(self.inputParts[part],
                                                       {'row': 2, 'column': 3, 'padx': 0, 'pady': 15})
 
         # Test Data Start Date
-        testStartDateBtn = crtBtn(self.inputParts[part], "Test Start Date",
+        testStartDateBtn = se.crtBtn(self.inputParts[part], "Test Start Date",
                                   {'row': 3, 'column': 0, 'padx': 0, 'pady': 15})
         testStartDateBtn.config(command=partial(self.crtCalender, self.inputParts[part], 'testDataStartDate'))
-        self.inputs['testDataStartDate'][1] = crtLabel(self.inputParts[part],
+        self.inputs['testDataStartDate'][1] = se.crtLabel(self.inputParts[part],
                                                        {'row': 3, 'column': 1, 'padx': 0, 'pady': 15})
 
         # Test Data End Date
-        testEndDateBtn = crtBtn(self.inputParts[part], "Test End Date",
+        testEndDateBtn = se.crtBtn(self.inputParts[part], "Test End Date",
                                 {'row': 3, 'column': 2, 'padx': 0, 'pady': 15})
         testEndDateBtn.config(command=partial(self.crtCalender, self.inputParts[part], 'testDataEndDate'))
-        self.inputs['testDataEndDate'][1] = crtLabel(self.inputParts[part],
+        self.inputs['testDataEndDate'][1] = se.crtLabel(self.inputParts[part],
                                                      {'row': 3, 'column': 3, 'padx': 0, 'pady': 15})
 
         # Predict
-        predictBtn = crtBtn(self.inputParts[part], "Predict", {'row': 4, 'column': 0, 'padx': 0, 'pady': 15})
+        predictBtn = se.crtBtn(self.inputParts[part], "Predict", {'row': 4, 'column': 0, 'padx': 0, 'pady': 15})
         predictBtn.config(command=partial(self.classificationPrediction, 'predictShowPlot'))
-        self.predictLabel = crtLabel(self.inputParts[part], {'row': 4, 'column': 1, 'padx': 0, 'pady': 15})
-        self.predictLabel.config(fg=finishForegroundColor)
+        self.predictLabel = se.crtLabel(self.inputParts[part], {'row': 4, 'column': 1, 'padx': 0, 'pady': 15})
+        self.predictLabel.config(fg=se.finishForegroundColor)
 
     def crtTestDataPartElements(self, part):
         # Start Index
-        starIndexEntry = crtEntry(self.inputParts[part], {'row': 1, 'column': 0, 'padx': 15, 'pady': 0}, "Start Index")
-        starIndexBtn = crtBtn(self.inputParts[part], "Select", {'row': 3, 'column': 0, 'padx': 0, 'pady': 15})
+        starIndexEntry = se.crtEntry(self.inputParts[part], {'row': 1, 'column': 0, 'padx': 15, 'pady': 0}, "Start Index")
+        starIndexBtn = se.crtBtn(self.inputParts[part], "Select", {'row': 3, 'column': 0, 'padx': 0, 'pady': 15})
         starIndexBtn.config(command=partial(self.getIntegerInput, starIndexEntry, 'startIndex'))
-        self.inputs['startIndex'][1] = crtLabel(self.inputParts[part], {'row': 3, 'column': 1, 'padx': 0, 'pady': 15})
+        self.inputs['startIndex'][1] = se.crtLabel(self.inputParts[part], {'row': 3, 'column': 1, 'padx': 0, 'pady': 15})
 
         # End Index
-        endIndexEntry = crtEntry(self.inputParts[part], {'row': 1, 'column': 2, 'padx': 15, 'pady': 0}, "End Index")
-        endIndexBtn = crtBtn(self.inputParts[part], "Select", {'row': 3, 'column': 2, 'padx': 0, 'pady': 15})
+        endIndexEntry = se.crtEntry(self.inputParts[part], {'row': 1, 'column': 2, 'padx': 15, 'pady': 0}, "End Index")
+        endIndexBtn = se.crtBtn(self.inputParts[part], "Select", {'row': 3, 'column': 2, 'padx': 0, 'pady': 15})
         endIndexBtn.config(command=partial(self.getIntegerInput, endIndexEntry, 'endIndex'))
-        self.inputs['endIndex'][1] = crtLabel(self.inputParts[part], {'row': 3, 'column': 3, 'padx': 0, 'pady': 15})
+        self.inputs['endIndex'][1] = se.crtLabel(self.inputParts[part], {'row': 3, 'column': 3, 'padx': 0, 'pady': 15})
 
         # Test Datas Predict
-        testDatasPredictBtn = crtBtn(self.inputParts[part], "Test Datas Predict",
+        testDatasPredictBtn = se.crtBtn(self.inputParts[part], "Test Datas Predict",
                                      {'row': 4, 'column': 0, 'padx': 0, 'pady': 15})
         testDatasPredictBtn.config(command=self.testDatasPrediction)
-        self.testDatasPredictLabel = crtLabel(self.inputParts[part], {'row': 4, 'column': 1, 'padx': 0, 'pady': 15})
-        self.testDatasPredictLabel.config(fg=finishForegroundColor)
+        self.testDatasPredictLabel = se.crtLabel(self.inputParts[part], {'row': 4, 'column': 1, 'padx': 0, 'pady': 15})
+        self.testDatasPredictLabel.config(fg=se.finishForegroundColor)
 
         # Test Datas Average Of Consistency
-        testDatasAvgBtn = crtBtn(self.inputParts[part], "Take Average Of\nConsistency",
+        testDatasAvgBtn = se.crtBtn(self.inputParts[part], "Take Average Of\nConsistency",
                                  {'row': 4, 'column': 2, 'padx': 0, 'pady': 15})
         testDatasAvgBtn.config(command=self.testDatasAvg)
-        self.testDatasAvgLabel = crtLabel(self.inputParts[part], {'row': 4, 'column': 3, 'padx': 0, 'pady': 15})
-        self.testDatasAvgLabel.config(fg=finishForegroundColor)
+        self.testDatasAvgLabel = se.crtLabel(self.inputParts[part], {'row': 4, 'column': 3, 'padx': 0, 'pady': 15})
+        self.testDatasAvgLabel.config(fg=se.finishForegroundColor)
 
     def getDate(self, calender, var):
         selectedDate = calender.get_date()
@@ -337,9 +322,9 @@ class MainScreen:
         calender.pack()
 
         btn = Button(calenderWindow, text="Select Date", command=partial(self.getDate, calender, var),
-                     fg=btnForegroundColor, bg=btnBackgroundColor,
-                     activeforeground=btnActiveForegroundColor, activebackground=btnActiveBackgroundColor,
-                     font=(btnFontType, btnFontSize))
+                     fg=se.btnForegroundColor, bg=se.btnBackgroundColor,
+                     activeforeground=se.btnActiveForegroundColor, activebackground=se.btnActiveBackgroundColor,
+                     font=(se.btnFontType, se.btnFontSize))
         btn.pack(side=BOTTOM, fill=BOTH)
 
     def setCryptoType(self, crypto, type):
@@ -474,10 +459,10 @@ class MainScreen:
     def crtShowPlotBtn(self, frame, layout, var):
         showPlotBtn = Checkbutton(frame, text="Show Plots", variable=self.inputs[var],
                                   onvalue=True, offvalue=False)
-        showPlotBtn.config(fg=btnForegroundColor, bg=btnBackgroundColor,
-                           activeforeground=btnActiveForegroundColor,
-                           activebackground=btnActiveBackgroundColor)
-        showPlotBtn.config(font=(btnFontType, btnFontSize))
+        showPlotBtn.config(fg=se.btnForegroundColor, bg=se.btnBackgroundColor,
+                           activeforeground=se.btnActiveForegroundColor,
+                           activebackground=se.btnActiveBackgroundColor)
+        showPlotBtn.config(font=(se.btnFontType, se.btnFontSize))
         showPlotBtn.grid(row=layout['row'], column=layout['column'], padx=layout['padx'], pady=layout['pady'])
 
     def getIntegerInput(self, entry, var):
@@ -490,62 +475,3 @@ class MainScreen:
 
     def on_close(self):
         exit()
-
-
-def crtBtn(frame, text, layout):  # layout include row, column, padx, pady
-    btn = Button(frame, text=text)
-    btn.config(fg=btnForegroundColor, bg=btnBackgroundColor, activeforeground=btnActiveForegroundColor,
-               activebackground=btnActiveBackgroundColor)
-    btn.config(font=(btnFontType, btnFontSize))
-    btn.grid(row=layout['row'], column=layout['column'], padx=layout['padx'], pady=layout['pady'])
-    return btn
-
-
-def crtMenuBtn(frame, text, layout, list, command, input):  # layout include row, column, padx, pady
-    btn = Menubutton(frame, text=text)
-    btn.config(fg=btnForegroundColor, bg=btnBackgroundColor, activeforeground=btnActiveForegroundColor,
-               activebackground=btnActiveBackgroundColor)
-    btn.config(font=(btnFontType, btnFontSize))
-    btn.grid(row=layout['row'], column=layout['column'], padx=layout['padx'], pady=layout['pady'])
-
-    menu = Menu(btn, tearoff=0)
-    for item in list:
-        menu.add_command(label=item, command=partial(command, item, input))
-
-    btn['menu'] = menu
-
-    return btn
-
-
-def crtLabel(frame, layout):  # layout include row, column, padx, pady
-    label = Label(frame, text="")
-    label.config(fg=foregroundColor, bg=backgroundColor2)
-    label.config(font=(btnFontType, btnFontSize))
-    label.grid(row=layout['row'], column=layout['column'], padx=layout['padx'], pady=layout['pady'])
-    return label
-
-
-def crtOutputTextArea(frame, place):
-    txtArea = Text(frame, state='disabled')
-    txtArea.config(fg=btnForegroundColor, bg=btnBackgroundColor)
-    txtArea.config(font=(fontType, fontSize))
-    txtArea.place(relx=place['relx'], rely=place['rely'], relheight=place['relheight'], relwidth=place['relwidth'])
-
-    scroll_y = Scrollbar(txtArea)
-    scroll_y.pack(side=RIGHT, fill=Y)
-
-    txtArea.config(yscrollcommand=scroll_y.set)
-    scroll_y.config(command=txtArea.yview)
-
-    return txtArea
-
-
-def crtEntry(frame, layout, txt):
-    label = crtLabel(frame, layout)
-    label.config(text=txt)
-    entry = Entry(frame, width=5)
-    entry.config(fg=foregroundColor, bg=backgroundColor1)
-    entry.config(font=(fontType, fontSize))
-    entry.grid(row=layout['row'] + 1, column=layout['column'], padx=layout['padx'], pady=layout['pady'])
-
-    return entry

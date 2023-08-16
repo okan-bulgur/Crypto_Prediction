@@ -1,5 +1,6 @@
+from datetime import timedelta, datetime
+
 import pandas as pd
-from datetime import datetime
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
@@ -8,11 +9,13 @@ from Prediction import models
 
 
 def splitDataByDate(data, start_train_date, end_train_date, start_test_date, end_test_date):
+    """
     start_train_date = datetime.strptime(start_train_date, "%Y-%m-%d")
     end_train_date = datetime.strptime(end_train_date, "%Y-%m-%d")
 
     start_test_date = datetime.strptime(start_test_date, "%Y-%m-%d")
     end_test_date = datetime.strptime(end_test_date, "%Y-%m-%d")
+    """
 
     train_data = data.loc[start_train_date: end_train_date]
     test_data = data.loc[start_test_date: end_test_date]
@@ -49,11 +52,11 @@ def startModel(data, model, x_train, x_test, y_train, y_test):
 
 
 def startPrepareData(crypto):
-    dataXlsxPath = f'Data Files/{crypto}/xlsx Files/final_data_TEST_DATA.xlsx'
+    dataCsvPath = f'Data Files/{crypto}/csv Files/final_data_TEST_DATA.csv'
     finalDataCsvPath = f'Data Files/{crypto}/csv Files/final_data.csv'
     finalDataXlsxPath = f'Data Files/{crypto}/xlsx Files/final_data.xlsx'
 
-    data = pd.read_excel(dataXlsxPath)
+    data = pd.read_csv(dataCsvPath)
     data.set_index('date', inplace=True)
 
     data = pld.generateData(data, crypto)
@@ -82,7 +85,9 @@ def startPrediction(model, data, x_train, x_test, y_train, y_test, test_data_ind
     models.getReports(y_test, y_pred)
 
     for date, move in zip(test_data_index, y_pred):
-        predicted[date] = move
+        date = datetime.strptime(date, "%Y-%m-%d")
+        date = date + timedelta(days=1)
+        predicted[str(date).split(" ")[0]] = move
 
     print("Predicted Movement is : ", predicted)
 
