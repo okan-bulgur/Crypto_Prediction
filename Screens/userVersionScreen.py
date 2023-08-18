@@ -10,11 +10,12 @@ import os
 
 import testing as ta
 
+title = "User Version"
+screenHeight = 700
+screenWidth = 500
+
 
 class UserScreen:
-    screenHeight = 700
-    screenWidth = 500
-
     cryptoList = ["bitcoin", "ethereum", "solana", "cardano"]
     startDateForData = "2020-01-01"
     crypto = StringVar
@@ -29,19 +30,12 @@ class UserScreen:
     resultLabel = Label
     txtArea = Text
 
-    def __init__(self):
-        self.window = Tk()
+    def __init__(self, frame):
+        self.window = frame
         self.crtScreen()
-        self.window.protocol("WM_DELETE_WINDOW", self.on_close)
-        self.window.mainloop()
 
     def crtScreen(self):
-        self.window.title("Crypto Prediction")
-        self.window.geometry(f"{self.screenWidth}x{self.screenHeight}")
         self.window.config(background=se.backgroundColor1)
-
-        icon = PhotoImage(file='res/btcIcon.png')
-        self.window.iconphoto(True, icon)
 
         header = Label(self.window, text="Crypto Prediction", font=(se.fontType, 40, 'bold'), fg=se.foregroundColor,
                        bg=se.backgroundColor1)
@@ -121,7 +115,6 @@ class UserScreen:
             'Test End Date': testDate
         }
 
-        print(inf)
         # data scraping
         self.dataScraping(inf['Train Start Date'], inf['Test End Date'], self.crypto)
         # prepare data
@@ -158,6 +151,3 @@ class UserScreen:
 
         self.txtArea.config(state='disable')
         print("End Prediction")
-
-    def on_close(self):
-        exit()
