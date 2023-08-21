@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="259ad234-5178-4e85-9327-32d71575b30a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Screens/menubar.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Screens/screenManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prediction/prediction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Prediction/prediction.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Screens/mainScreen.py" beforeDir="false" afterPath="$PROJECT_DIR$/Screens/mainScreen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Screens/userVersionScreen.py" beforeDir="false" afterPath="$PROJECT_DIR$/Screens/userVersionScreen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testDatas.csv" beforeDir="false" afterPath="$PROJECT_DIR$/testDatas.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

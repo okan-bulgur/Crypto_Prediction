@@ -16,6 +16,7 @@ def speak(text):
 
 def getInformations(testDatas_df, index):
     crypto = testDatas_df.loc[index, 'Crypto']
+    model = testDatas_df.loc[index, 'Model']
     trainStartDate = testDatas_df.loc[index, 'Train Start Date']
     trainEndDate = testDatas_df.loc[index, 'Train End Date']
     testStartDate = testDatas_df.loc[index, 'Test Start Date']
@@ -23,6 +24,7 @@ def getInformations(testDatas_df, index):
 
     inf = {
         'Crypto': crypto,
+        'Model': model,
         'Train Start Date': trainStartDate,
         'Train End Date': trainEndDate,
         'Test Start Date': testStartDate,
@@ -66,7 +68,7 @@ def getResult(df, index, inf):
 def getPredict(df, index, inf):
     global movementPred
 
-    model = 'gbc_model'
+    model = inf['Model']
     data = prediction.startPrepareData(inf['Crypto'])
     x_train, x_test, y_train, y_test = prediction.splitDataByDate \
         (data, inf['Train Start Date'],
@@ -141,18 +143,25 @@ def calculateAvgOfConsistency(startIndex, endIndex, txtArea):
     txtArea.config(state='disable')
 
 
-def automation(startIndex, endIndex):
+def startModels(inf, type):
+    if type == 'automation':
+        automation(inf)
+    elif type == 'manuel':
+        manuel(inf)
+
+
+def automation(inf):
     testDatas_df = pd.read_csv('testDatas.csv')
 
-    if endIndex > testDatas_df.shape[0]:
-        endIndex = testDatas_df.shape[0] + 1
+    if inf['endIndex'] > testDatas_df.shape[0]:
+        inf['endIndex'] = testDatas_df.shape[0] + 1
 
-    for index in range(startIndex - 2, endIndex - 1):
+    for index in range(inf['startIndex'] - 2, inf['endIndex'] - 1):
         speak(f'{index + 2} is started')
-        inf = getInformations(testDatas_df, index)
-        print(f'\033[32mIndex : {index + 2}\nInf : {inf}\033[0m\n')
-        testDatas_df = getPredict(testDatas_df, index, inf)
-        testDatas_df = getResult(testDatas_df, index, inf)
+        inf_df = getInformations(testDatas_df, index)
+        print(f'\033[32mIndex : {index + 2}\nInf : {inf_df}\033[0m\n')
+        testDatas_df = getPredict(testDatas_df, index, inf_df)
+        testDatas_df = getResult(testDatas_df, index, inf_df)
         testDatas_df = calculateConsistency(testDatas_df, index)
         testDatas_df.to_csv(dataPath, index=False)
         speak(f'{index + 2} is ended')
@@ -164,6 +173,11 @@ def manuel(inf):
     testDatas_df = pd.read_csv(dataPath)
     loadInfToDf(inf, testDatas_df)
     testDatas_df = pd.read_csv(dataPath)
-    index = testDatas_df.shape[0]+1
-    automation(index, index)
+    index = testDatas_df.shape[0] + 1
 
+    inf_ind = {
+        'startIndex': index,
+        'endIndex': index
+    }
+
+    automation(inf_ind)

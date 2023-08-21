@@ -17,6 +17,7 @@ screenWidth = 500
 
 class UserScreen:
     cryptoList = ["bitcoin", "ethereum", "solana", "cardano"]
+    model = 'gbc_model'
     startDateForData = "2020-01-01"
     crypto = StringVar
     cryptoLabel = Label
@@ -109,6 +110,7 @@ class UserScreen:
 
         inf = {
             'Crypto': self.crypto,
+            'Model': self.model,
             'Train Start Date': self.startDateForData,
             'Train End Date': trainEndDate,
             'Test Start Date': testDate,

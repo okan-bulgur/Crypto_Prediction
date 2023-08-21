@@ -16,6 +16,7 @@ screenWidth = 1500
 
 class MainScreen:
     cryptoList = ["bitcoin", "ethereum", "solana", "cardano"]
+    modelList = ["gbc_model", "model_2"]
 
     # Frames
     generalFrame = Frame
@@ -42,6 +43,7 @@ class MainScreen:
 
     # Predict Part Inputs
     predictCrypto = None
+    predictModel = None
     trainDataStartDate = None
     trainDataEndDate = None
     testDataStartDate = None
@@ -64,6 +66,7 @@ class MainScreen:
     dataPrepareLabel = Label
     # Predict Part Labels
     predictCryptoLabel = Label
+    predictModelLabel = Label
     trainDataStartDateLabel = Label
     trainDataEndDateLabel = Label
     testDataStartDateLabel = Label
@@ -98,6 +101,7 @@ class MainScreen:
         'dataCrypto': [dataCrypto, dataCryptoLabel],
         # Predict Part Inputs
         'predictCrypto': [predictCrypto, predictCryptoLabel],
+        'predictModel': [predictModel, predictModelLabel],
         'trainDataStartDate': [trainDataStartDate, trainDataStartDateLabel],
         'trainDataEndDate': [trainDataEndDate, trainDataEndDateLabel],
         'testDataStartDate': [testDataStartDate, testDataStartDateLabel],
@@ -111,10 +115,8 @@ class MainScreen:
         self.window = frame
         self.robertaShowPlot = BooleanVar()
         self.dataShowPlot = BooleanVar()
-        self.predictShowPlot = BooleanVar()
         self.inputs['robertaShowPlot'] = self.robertaShowPlot
         self.inputs['dataShowPlot'] = self.dataShowPlot
-        self.inputs['predictShowPlot'] = self.predictShowPlot
         self.crtScreen()
 
     def crtScreen(self):
@@ -241,8 +243,11 @@ class MainScreen:
         self.inputs['predictCrypto'][1] = se.crtLabel(self.inputParts[part],
                                                       {'row': 1, 'column': 1, 'padx': 0, 'pady': 15})
 
-        # Show Plot
-        self.crtShowPlotBtn(self.inputParts[part], {'row': 1, 'column': 2, 'padx': 0, 'pady': 15}, 'predictShowPlot')
+        # Model
+        modelBtn = se.crtMenuBtn(self.inputParts[part], "Model", {'row': 1, 'column': 2, 'padx': 0, 'pady': 15},
+                                  self.modelList, self.setModelType, "predictModel")
+        self.inputs['predictModel'][1] = se.crtLabel(self.inputParts[part],
+                                                      {'row': 1, 'column': 3, 'padx': 0, 'pady': 15})
 
         # Train Data Start Date
         trainStartDateBtn = se.crtBtn(self.inputParts[part], "Train Start Date",
@@ -274,7 +279,7 @@ class MainScreen:
 
         # Predict
         predictBtn = se.crtBtn(self.inputParts[part], "Predict", {'row': 4, 'column': 0, 'padx': 0, 'pady': 15})
-        predictBtn.config(command=partial(self.classificationPrediction, 'predictShowPlot'))
+        predictBtn.config(command=self.manuelPrediction)
         self.predictLabel = se.crtLabel(self.inputParts[part], {'row': 4, 'column': 1, 'padx': 0, 'pady': 15})
         self.predictLabel.config(fg=se.finishForegroundColor)
 
@@ -338,6 +343,10 @@ class MainScreen:
                 os.makedirs(f'Data Files/{crypto}/csv Files')
                 os.makedirs(f'Data Files/{crypto}/xlsx Files')
 
+    def setModelType(self, model, type):
+        self.inputs[type][0] = model
+        self.inputs[type][1].config(text=model)
+
     def dateCompare(self, startDate, endDate):
         if startDate > endDate:
             return False
@@ -388,11 +397,12 @@ class MainScreen:
 
     # Predict Part Functions
 
-    def classificationPrediction(self, showPlot):
+    def manuelPrediction(self):
         self.txtArea.config(state='normal')
         self.txtArea.delete('1.0', END)
 
         crypto = self.inputs['predictCrypto'][0]
+        model = self.inputs['predictModel'][0]
         label = self.predictLabel
         trainStartDate = self.inputs['trainDataStartDate'][0]
         trainEndDate = self.inputs['trainDataEndDate'][0]
@@ -406,13 +416,14 @@ class MainScreen:
 
             inf = {
                 'Crypto': crypto,
+                'Model': model,
                 'Train Start Date': trainStartDate,
                 'Train End Date': trainEndDate,
                 'Test Start Date': testStartDate,
                 'Test End Date': testEndDate
             }
 
-            ta.manuel(inf)
+            ta.startModels(inf, 'manuel')
 
             label.config(text="Predicted ✓")
 
@@ -430,16 +441,18 @@ class MainScreen:
             tkinter.messagebox.showwarning(title="Error", message="Invalid Inputs")
 
     def testDatasPrediction(self):
-        startIndex = self.inputs['startIndex'][0]
-        endIndex = self.inputs['endIndex'][0]
+        inf = {
+            'startIndex': self.inputs['startIndex'][0],
+            'endIndex': self.inputs['endIndex'][0]
+        }
 
-        if startIndex > endIndex:
+        if inf['startIndex'] > inf['endIndex']:
             tkinter.messagebox.showwarning(title="Error", message="Start Index Cannot Be Greater Than End Index")
             return
 
         label = self.testDatasPredictLabel
         label.config(text="")
-        ta.automation(startIndex, endIndex)
+        ta.startModels(inf, 'automation')
         label.config(text="Predicted ✓")
 
     def testDatasAvg(self):

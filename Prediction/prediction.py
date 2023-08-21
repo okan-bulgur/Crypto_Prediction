@@ -50,7 +50,6 @@ def startModel(data, model, x_train, x_test, y_train, y_test):
         modelPath = f'Models/{crypto}/{model}.pkl'
         models.gbcModel(modelPath, x_train, x_test, y_train, y_test)
 
-
 def startPrepareData(crypto):
     dataCsvPath = f'Data Files/{crypto}/csv Files/final_data_TEST_DATA.csv'
     finalDataCsvPath = f'Data Files/{crypto}/csv Files/final_data.csv'
