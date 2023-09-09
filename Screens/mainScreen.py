@@ -16,7 +16,7 @@ screenWidth = 1500
 
 class MainScreen:
     cryptoList = ["bitcoin", "ethereum", "solana", "cardano"]
-    modelList = ["gbc_model", "model_2"]
+    modelList = ["gbc_model", "xgboost_model"]
 
     # Frames
     generalFrame = Frame

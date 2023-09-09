@@ -82,9 +82,4 @@ def gbcModel(modelPath, x_train, x_test, y_train, y_test):
     probs = best_gbm.predict_proba(x_test)
     probs = probs[:, 1]
 
-    """
-    auc = roc_auc_score(y_test, probs)
-    print(f'\nAUC: {auc * 100}\n')
-    """
-
     deployModel(best_gbm, modelPath)
