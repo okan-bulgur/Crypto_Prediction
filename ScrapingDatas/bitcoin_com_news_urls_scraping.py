@@ -1,20 +1,20 @@
 import os
-
-from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 import pandas as pd
 import time
 import warnings
 import tqdm
 import matplotlib.pyplot as plt
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
 from tqdm import tqdm
 
 pd.pandas.set_option('display.max_columns', None)
 pd.pandas.set_option('display.max_rows', 500)
 warnings.filterwarnings("ignore")
 
-chromedriverPath = 'ScrapingPart/chromedriver/chromedriver.exe'
+#chromedriverPath = 'ScrapingPart/chromedriver/chromedriver.exe'
 
 
 class newsScraping:
@@ -107,11 +107,15 @@ class newsScraping:
         return products_content_list_to_return
 
     def setDriver(self):
+        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        self.driver.get(f'https://news.bitcoin.com/?s={self.symbol}')
+        time.sleep(3)
+        """
         service = ChromeService(executable_path=chromedriverPath)
         self.driver = webdriver.Chrome(service=service)
         self.driver.get(f'https://news.bitcoin.com/?s={self.symbol}')
         time.sleep(3)
-
+        """
     def create_url(self, i=2):
         url = f'https://news.bitcoin.com/page/{str(i)}/?s={self.symbol}'
         return url
@@ -124,7 +128,7 @@ class newsScraping:
                 self.driver.get(url)
                 time.sleep(5)
                 content = self.extract_content(self.driver)
-                if content == None:
+                if content is None:
                     break
                 self.total_news.append(content)
 

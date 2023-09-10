@@ -118,23 +118,11 @@ class UserScreen:
         }
 
         # data scraping
-        self.dataScraping(inf['Train Start Date'], inf['Test End Date'], self.crypto)
+        dataScraping(inf['Train Start Date'], inf['Test End Date'], self.crypto)
         # prepare data
-        self.prepareData(self.crypto)
+        prepareData(self.crypto)
         # prediction
         self.prediction(inf)
-        pass
-
-    def dataScraping(self, startDate, endDate, crypto):
-        print("Start Data Scraping")
-        newData = data.Data(startDate, endDate, crypto)
-        ds.dataScraping(newData)
-        print("End Data Scraping")
-
-    def prepareData(self, crypto):
-        print("Start Prepare Data")
-        exec(open('PrepareDatas/prepare_data.py').read(), {'symbol': crypto})
-        print("End Prepare Data")
 
     def prediction(self, inf):
         print("Start Prediction")
@@ -153,3 +141,16 @@ class UserScreen:
 
         self.txtArea.config(state='disable')
         print("End Prediction")
+
+
+def dataScraping(startDate, endDate, crypto):
+    print("Start Data Scraping")
+    newData = data.Data(startDate, endDate, crypto)
+    ds.dataScraping(newData)
+    print("End Data Scraping")
+
+
+def prepareData(crypto):
+    print("Start Prepare Data")
+    exec(open('PrepareDatas/prepare_data.py').read(), {'symbol': crypto})
+    print("End Prepare Data")
