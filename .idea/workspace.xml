@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="259ad234-5178-4e85-9327-32d71575b30a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Crypto_Prediction.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Crypto_Prediction.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data Files/DFF Files/DFF.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/DFF Files/DFF.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScrapingDatas/bitcoin_com_news_urls_scraping.py" beforeDir="false" afterPath="$PROJECT_DIR$/ScrapingDatas/bitcoin_com_news_urls_scraping.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScrapingDatas/chromedriver/LICENSE.chromedriver" beforeDir="false" afterPath="$PROJECT_DIR$/ScrapingDatas/chromedriver/LICENSE.chromedriver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScrapingDatas/chromedriver/chromedriver.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ScrapingDatas/chromedriver/chromedriver.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Screens/userVersionScreen.py" beforeDir="false" afterPath="$PROJECT_DIR$/Screens/userVersionScreen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/final_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/final_data.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/final_data_TEST_DATA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/final_data_TEST_DATA.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/prices.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/prices.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/bitcoin.com_news_Test_Data_Sentiments.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/bitcoin.com_news_Test_Data_Sentiments.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/final_data.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/final_data.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/final_data_TEST_DATA.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/final_data_TEST_DATA.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/bitcoin/gbc_model.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/Models/bitcoin/gbc_model.pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testDatas.csv" beforeDir="false" afterPath="$PROJECT_DIR$/testDatas.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,6 +35,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2Tk7dN7vuI1LAE8vBpxXETu5j7X" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
