@@ -151,7 +151,7 @@ def startModels(inf, type):
 
 
 def automation(inf):
-    testDatas_df = pd.read_csv('testDatas.csv')
+    testDatas_df = pd.read_csv(dataPath)
 
     if inf['endIndex'] > testDatas_df.shape[0]:
         inf['endIndex'] = testDatas_df.shape[0] + 1
