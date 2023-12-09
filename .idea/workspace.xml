@@ -6,22 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="259ad234-5178-4e85-9327-32d71575b30a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data Files/DFF Files/DFF.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/DFF Files/DFF.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/bitcoin.com_news_Test_Data_Sentiments.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/bitcoin.com_news_Test_Data_Sentiments.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/bitcoin.com_news_url.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/bitcoin.com_news_url.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/final_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/final_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/final_data_TEST_DATA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/final_data_TEST_DATA.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/prices.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/csv Files/prices.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/bitcoin.com_news_Test_Data_Sentiments.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/bitcoin.com_news_Test_Data_Sentiments.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/bitcoin.com_news_url.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/bitcoin.com_news_url.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/final_data.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/final_data.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/final_data_TEST_DATA.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/final_data_TEST_DATA.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/prices.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/bitcoin/xlsx Files/prices.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data Files/currency/csv Files/currency_prices.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/currency/csv Files/currency_prices.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data Files/currency/xlsx Files/currency_prices.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Data Files/currency/xlsx Files/currency_prices.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/bitcoin/gbc_model.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/Models/bitcoin/gbc_model.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testDatas.csv" beforeDir="false" afterPath="$PROJECT_DIR$/testDatas.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
