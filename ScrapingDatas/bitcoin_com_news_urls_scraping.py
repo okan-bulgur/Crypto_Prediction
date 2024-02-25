@@ -49,11 +49,12 @@ class newsScraping:
 
             # DATE EXTRACTION
             try:
-                date_xpath = "/html/body/div[1]/div[3]/div/div[1]/div[2]/div[" + str(i) + "]/div[2]/div[1]/span/time"
+                date_xpath = "/html/body/div[1]/div[2]/div/div[1]/div[2]/div[" + str(i) + "]/div[2]/div[1]/span/time"
                 date_element = driver.find_elements(By.XPATH, date_xpath)[0].text
                 item['date'] = date_element
                 if (pd.to_datetime(date_element, format='%b %d, %Y') > pd.to_datetime(self.end_date,
                                                                                       format='%Y-%m-%d')):
+                    print("* ", pd.to_datetime(date_element, format='%b %d, %Y'), " > ", pd.to_datetime(self.end_date, format='%Y-%m-%d'))
                     continue
                 elif (pd.to_datetime(date_element, format='%b %d, %Y') < pd.to_datetime(self.start_date,
                                                                                         format='%Y-%m-%d')):
@@ -65,7 +66,7 @@ class newsScraping:
 
             # CATEGORY EXTRACTION
             try:
-                category_xpath = "/html/body/div[1]/div[3]/div/div[1]/div[2]/div[" + str(i) + "]/div[2]/div[1]/a"
+                category_xpath = "/html/body/div[1]/div[2]/div/div[1]/div[2]/div[" + str(i) + "]/div[2]/div[1]/a"
                 category_element = driver.find_elements(By.XPATH, category_xpath)[0].text
                 item['category'] = category_element
             except:
@@ -73,7 +74,7 @@ class newsScraping:
 
             # TITLE EXTRACTION
             try:
-                title_xpath = "/html/body/div[1]/div[3]/div/div[1]/div[2]/div[" + str(i) + "]/div[2]/h3/a"
+                title_xpath = "/html/body/div[1]/div[2]/div/div[1]/div[2]/div[" + str(i) + "]/div[2]/h3/a"
                 title_element = driver.find_elements(By.XPATH, title_xpath)[0].text
                 item['title'] = title_element
             except:
@@ -81,7 +82,7 @@ class newsScraping:
 
             # DESCRIPTION EXTRACTION
             try:
-                description_xpath = "/html/body/div[1]/div[3]/div/div[1]/div[2]/div[" + str(i) + "]/div[2]/div[2]"
+                description_xpath = "/html/body/div[1]/div[2]/div/div[1]/div[2]/div[" + str(i) + "]/div[2]/div[2]"
                 description_element = driver.find_elements(By.XPATH, description_xpath)[0].text
                 item['description'] = description_element
             except:
@@ -89,7 +90,7 @@ class newsScraping:
 
             # URL EXTRACTION
             try:
-                url_xpath = "/html/body/div[1]/div[3]/div/div[1]/div[2]/div[" + str(i) + "]/div[2]/h3/a"
+                url_xpath = "/html/body/div[1]/div[2]/div/div[1]/div[2]/div[" + str(i) + "]/div[2]/h3/a"
                 url_element = driver.find_elements(By.XPATH, url_xpath)[0].get_attribute('href')
                 item['url'] = url_element
             except:
